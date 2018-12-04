@@ -12,7 +12,7 @@ class Dish(models.Model):
     price = models.IntegerField()   # Store prices in terms of cents.
 
 
-# Above classes are inherited from <MenuItem>
+# Above classes are inherited from <Dish>
 class Pizza(Dish):
     class Meta:
         db_table = 'Pizzas'
@@ -48,3 +48,12 @@ class DinnerPlatter(Dish):
         db_table = 'Dinner Platters'
 
     size = _size
+
+
+class Order(models.Model):
+    class Meta:
+        db_table = 'Orders'
+
+    customer = models.CharField(max_length=20)
+    order_list = models.ManyToManyField(Dish, blank=True, related_name='Articles')
+    status = 'Cooking'
