@@ -9,7 +9,7 @@ class Dish(models.Model):
         db_table = 'Menu'
 
     article = models.CharField(max_length=50)
-    price = models.IntegerField()   # Store prices in terms of cents.
+    price = models.DecimalField(max_digits=7, decimal_places=2)   # Store prices in terms of cents.
 
 
 # Above classes are inherited from <Dish>
@@ -17,13 +17,19 @@ class Pizza(Dish):
     class Meta:
         db_table = 'Pizzas'
 
-    mod = models.CharField(max_length=15)
+    mode = models.CharField(max_length=15)
     size = _size
+
+    def __str__(self):
+        return f"Pizza: {self.article}, {self.size}, with {self.mode.lower()}"
 
 
 class Topping(Dish):
     class Meta:
         db_table = 'Toppings'
+
+    def __str__(self):
+        return f"Topping: {self.article}"
 
 
 class Sub(Dish):
@@ -32,15 +38,24 @@ class Sub(Dish):
 
     size = _size
 
+    def __str__(self):
+        return f"Sub: {self.article}, {self.size}"
+
 
 class Pasta(Dish):
     class Meta:
         db_table = 'Pasta'
 
+    def __str__(self):
+        return f"Pasta: {self.article}"
+
 
 class Salad(Dish):
     class Meta:
         db_table = 'Salads'
+
+    def __str__(self):
+        return f"Salad: {self.article}"
 
 
 class DinnerPlatter(Dish):
@@ -48,6 +63,9 @@ class DinnerPlatter(Dish):
         db_table = 'Dinner Platters'
 
     size = _size
+
+    def __str__(self):
+        return f"Dinner Platter: {self.article}, {self.size}"
 
 
 class Order(models.Model):
